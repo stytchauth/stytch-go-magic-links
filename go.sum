@@ -1,0 +1,4 @@
+github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
+github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
+github.com/stytchauth/stytch-go v0.0.0-20210125180621-7db03a311886 h1:5P+AWmIYFlOukUFuyCw5dCMVEBd1Rq1T3gemZOutVyc=
+github.com/stytchauth/stytch-go v0.0.0-20210125180621-7db03a311886/go.mod h1:8TWWaj9VzUDJDAzG+m3IpVfCQgmG2hB1whYO3oxy8yw=
