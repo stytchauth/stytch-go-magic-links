@@ -2,5 +2,5 @@ github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
 github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
 github.com/joho/godotenv v1.3.0 h1:Zjp+RcGpHhGlrMbJzXTrZZPrWj+1vfm90La1wgB6Bhc=
 github.com/joho/godotenv v1.3.0/go.mod h1:7hK45KPybAkOC6peb+G5yklZfMxEjkZhHbwpqxOKXbg=
-github.com/stytchauth/stytch-go v1.0.0 h1:7Ok2UJNTWFRHY0diB2vpYWDQbLoT+ymkoB0S+onbqpM=
-github.com/stytchauth/stytch-go v1.0.0/go.mod h1:8TWWaj9VzUDJDAzG+m3IpVfCQgmG2hB1whYO3oxy8yw=
+github.com/stytchauth/stytch-go v1.0.2 h1:YJRtYj238w/QZyQDNfcLvUBDiWZ0UxlrtK0bh+C4gF4=
+github.com/stytchauth/stytch-go v1.0.2/go.mod h1:8TWWaj9VzUDJDAzG+m3IpVfCQgmG2hB1whYO3oxy8yw=
