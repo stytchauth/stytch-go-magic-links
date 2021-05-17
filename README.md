@@ -1,7 +1,7 @@
 # stytch-go-magic-links
 
 ##### 1. Set ENV vars
-Set your project ID and secret in the `.env` file.
+Set your test project ID and secret in the `.env` file.
 
 ##### 2. Run the Server
 
