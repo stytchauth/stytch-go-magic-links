@@ -10,14 +10,14 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	"github.com/stytchauth/stytch-go/stytch"
-	stytchClient "github.com/stytchauth/stytch-go/stytch/client"
+	"github.com/stytchauth/stytch-go/stytch/stytchapi"
 )
 
 type config struct {
 	address      string
 	fullAddress  string
 	magicLinkURL string
-	stytchClient *stytchClient.API
+	stytchClient *stytchapi.API
 }
 
 // struct to hold the values to be passed to the html templates
@@ -130,8 +130,7 @@ func initializeConfig() (*config, error) {
 
 	// define the stytch client using your stytch project id & secret
 	// use stytch.EnvLive if you want to hit the live api
-	stytchAPIClient := &stytchClient.API{}
-	stytchAPIClient.Init(
+	stytchAPIClient := stytchapi.NewAPIClient(
 		stytch.EnvTest,
 		os.Getenv("STYTCH_PROJECT_ID"),
 		os.Getenv("STYTCH_SECRET"),
