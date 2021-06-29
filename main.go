@@ -9,14 +9,15 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	"github.com/stytchauth/stytch-go/stytch"
+	"github.com/stytchauth/stytch-go/v3/stytch"
+	"github.com/stytchauth/stytch-go/v3/stytch/stytchapi"
 )
 
 type config struct {
 	address      string
 	fullAddress  string
 	magicLinkURL string
-	client       *stytch.Client
+	stytchClient *stytchapi.API
 }
 
 // struct to hold the values to be passed to the html templates
@@ -60,11 +61,12 @@ func (c *config) homepage(w http.ResponseWriter, r *http.Request) {
 // takes the email entered on the homepage and hits the stytch
 // loginOrCreateUser endpoint to send the user a magic link
 func (c *config) loginOrCreateUser(w http.ResponseWriter, r *http.Request) {
-	_, err := c.client.LoginOrCreateUser(&stytch.LoginOrCreateUser{
-		Email:              r.FormValue("email"),
-		LoginMagicLinkURL:  c.magicLinkURL,
-		SignUpMagicLinkURL: c.magicLinkURL,
-	})
+	_, err := c.stytchClient.MagicLinks.Email.LoginOrCreate(
+		&stytch.MagicLinksEmailLoginOrCreateParams{
+			Email:              r.FormValue("email"),
+			LoginMagicLinkURL:  c.magicLinkURL,
+			SignupMagicLinkURL: c.magicLinkURL,
+		})
 	if err != nil {
 		log.Printf("something went wrong sending magic link: %s\n", err)
 	}
@@ -75,7 +77,10 @@ func (c *config) loginOrCreateUser(w http.ResponseWriter, r *http.Request) {
 // this is the endpoint the link in the magic link hits takes the token from the
 // link's query params and hits the stytch authenticate endpoint to verify the token is valid
 func (c *config) authenticate(w http.ResponseWriter, r *http.Request) {
-	_, err := c.client.AuthenticateMagicLink(r.URL.Query().Get("token"), nil)
+	_, err := c.stytchClient.MagicLinks.Authenticate(
+		&stytch.MagicLinksAuthenticateParams{
+			Token: r.URL.Query().Get("token"),
+		})
 	if err != nil {
 		log.Printf("something went wrong authenticating the magic link: %s\n", err)
 	}
@@ -121,19 +126,21 @@ func initializeConfig() (*config, error) {
 		log.Printf("No .env file found at '%s'", ".env")
 		return &config{}, errors.New("error loading .env file")
 	}
-
 	address := getEnv("ADDRESS", "localhost:4567")
+
+	// define the stytch client using your stytch project id & secret
+	// use stytch.EnvLive if you want to hit the live api
+	stytchAPIClient := stytchapi.NewAPIClient(
+		stytch.EnvTest,
+		os.Getenv("STYTCH_PROJECT_ID"),
+		os.Getenv("STYTCH_SECRET"),
+	)
+
 	return &config{
 		address:      address,
 		fullAddress:  "http://" + address,
 		magicLinkURL: "http://" + address + "/authenticate",
-		// define the stytch client using your stytch project id & secret
-		// use stytch.EnvLive if you want to hit the live api
-		client: stytch.NewClient(
-			stytch.EnvTest,
-			os.Getenv("STYTCH_PROJECT_ID"),
-			os.Getenv("STYTCH_SECRET"),
-		),
+		stytchClient: stytchAPIClient,
 	}, nil
 
 }
