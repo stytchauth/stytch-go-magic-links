@@ -9,8 +9,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	"github.com/stytchauth/stytch-go/stytch"
-	"github.com/stytchauth/stytch-go/stytch/stytchapi"
+	"github.com/stytchauth/stytch-go/v3/stytch"
+	"github.com/stytchauth/stytch-go/v3/stytch/stytchapi"
 )
 
 type config struct {
