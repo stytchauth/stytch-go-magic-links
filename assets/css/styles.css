@@ -54,12 +54,20 @@ body {
 
 .cardContent {
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 p {
     font-size: 20px;
     line-height: 26px;
     margin-bottom: 30px;
+}
+
+label {
+    font-size: 20px;
+    line-height: 26px;
+    padding-right: 15px;
 }
 
 .actions {
@@ -71,6 +79,9 @@ p {
 .authType {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
 }
 .authInput {
     display: flex;
@@ -85,7 +96,7 @@ p {
     margin: 0 0 5px 0;
 }
 
-input {
+.inputBox {
     border: 1px solid black;
     border-radius: 0px;
     font-family: "Optima", sans-serif;
@@ -95,36 +106,20 @@ input {
     padding: 10px;
 }
 
-input:focus {
-    outline: 0;
-}
-
-input:disabled {
-    background-color: white;
-    color: #19303D;
-}
-
 .telInput {
     display: flex;
     white-space: nowrap;
     max-width: 320px;
     width: 100%;
+    padding-right: 10px;
 }
   
-.flag {
+#flag {
     background: url('../images/stars-and-stripes.png') no-repeat scroll 7px 15px;
-    border-right: none;
-    border-radius: 3px 0 0 3px;
+    border: 1px solid black;
+    border-radius: 0px;
     width: 80px;
-    padding-left: 52px;
-}
-
-#phoneNumber {
-    border-left: none;
-    border-radius: 0 3px 3px 0;
-    margin-left: -6px;
-    flex-grow: 1;
-    width: 100%;
+    height: 18px;
 }
 
 .arrow {
