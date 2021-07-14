@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -24,6 +25,8 @@ type config struct {
 type templateVariables struct {
 	LoginOrCreateUserPath string
 	LoggedOutPath         string
+	PhoneId               string
+	HasErrored            bool
 }
 
 func main() {
@@ -38,6 +41,7 @@ func main() {
 	r.HandleFunc("/", c.homepage).Methods("GET")
 	r.HandleFunc("/login_or_create_user", c.loginOrCreateUser).Methods("POST")
 	r.HandleFunc("/authenticate", c.authenticate).Methods("GET")
+	r.HandleFunc("/authenticate_otp", c.authenticateOTP).Methods("POST")
 	r.HandleFunc("/logout", c.logout).Methods("GET")
 
 	// Declare the static file directory
@@ -61,17 +65,60 @@ func (c *config) homepage(w http.ResponseWriter, r *http.Request) {
 // takes the email entered on the homepage and hits the stytch
 // loginOrCreateUser endpoint to send the user a magic link
 func (c *config) loginOrCreateUser(w http.ResponseWriter, r *http.Request) {
+	if r.FormValue("authType") == "email" {
+		err := c.loginOrCreateEmailUser(r.FormValue("email"))
+		if err != nil {
+			log.Printf("something went wrong sending magic link: %s\n", err)
+		}
+
+		parseAndExecuteTemplate("templates/emailSent.html", nil, w)
+	} else {
+		phoneNum := r.FormValue("intlCode") + r.FormValue("phoneNumber")
+		var phoneID string
+		var err error
+
+		if r.FormValue("authType") == "sms" {
+			phoneID, err = c.loginOrCreateSmsUser(phoneNum)
+		} else if r.FormValue("authType") == "whatsApp" {
+			phoneID, err = c.loginOrCreateWhatsAppUser(phoneNum)
+		}
+
+		if err != nil {
+			log.Printf("something went wrong sending code: %s\n", err)
+		}
+
+		parseAndExecuteTemplate(
+			"templates/authenticate.html",
+			&templateVariables{PhoneId: phoneID, HasErrored: false},
+			w,
+		)
+	}
+}
+
+func (c *config) loginOrCreateEmailUser(email string) error {
 	_, err := c.stytchClient.MagicLinks.Email.LoginOrCreate(
 		&stytch.MagicLinksEmailLoginOrCreateParams{
-			Email:              r.FormValue("email"),
+			Email:              email,
 			LoginMagicLinkURL:  c.magicLinkURL,
 			SignupMagicLinkURL: c.magicLinkURL,
 		})
-	if err != nil {
-		log.Printf("something went wrong sending magic link: %s\n", err)
-	}
+	return err
+}
 
-	parseAndExecuteTemplate("templates/emailSent.html", nil, w)
+func (c *config) loginOrCreateSmsUser(phoneNumber string) (string, error) {
+	resp, err := c.stytchClient.OTPs.SMS.LoginOrCreate(
+		&stytch.OTPsSMSLoginOrCreateParams{
+			PhoneNumber: phoneNumber,
+		})
+	return resp.PhoneID, err
+}
+
+func (c *config) loginOrCreateWhatsAppUser(phoneNumber string) (string, error) {
+	resp, err := c.stytchClient.OTPs.WhatsApp.LoginOrCreate(
+		&stytch.OTPsWhatsAppLoginOrCreateParams{
+			PhoneNumber: phoneNumber,
+		})
+	return resp.PhoneID, err
 }
 
 // this is the endpoint the link in the magic link hits takes the token from the
@@ -90,6 +137,34 @@ func (c *config) authenticate(w http.ResponseWriter, r *http.Request) {
 		&templateVariables{LoggedOutPath: c.fullAddress + "/logout"},
 		w,
 	)
+}
+
+// Authenticate an OTP code from WhatsApp or SMS
+func (c *config) authenticateOTP(w http.ResponseWriter, r *http.Request) {
+	code := ""
+	for i := 1; i <= 6; i++ {
+		code += r.FormValue(fmt.Sprintf("digit-%d", i))
+	}
+	_, err := c.stytchClient.OTPs.Authenticate(
+		&stytch.OTPsAuthenticateParams{
+			MethodID: r.FormValue("phoneId"),
+			Code:     code,
+		})
+
+	if err != nil {
+		log.Printf("something went wrong authenticating the SMS code: %s\n", err)
+		parseAndExecuteTemplate(
+			"templates/authenticate.html",
+			&templateVariables{PhoneId: r.FormValue("phoneId"), HasErrored: true},
+			w,
+		)
+	} else {
+		parseAndExecuteTemplate(
+			"templates/loggedIn.html",
+			&templateVariables{LoggedOutPath: c.fullAddress + "/logout"},
+			w,
+		)
+	}
 }
 
 // handles the logout endpoint

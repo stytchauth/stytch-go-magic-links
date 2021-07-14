@@ -4,3 +4,5 @@ github.com/joho/godotenv v1.3.0 h1:Zjp+RcGpHhGlrMbJzXTrZZPrWj+1vfm90La1wgB6Bhc=
 github.com/joho/godotenv v1.3.0/go.mod h1:7hK45KPybAkOC6peb+G5yklZfMxEjkZhHbwpqxOKXbg=
 github.com/stytchauth/stytch-go/v3 v3.0.0 h1:VmU7kka7GPkz3UzU10C+H1+QQVYpws2YzaFnMWmU2x8=
 github.com/stytchauth/stytch-go/v3 v3.0.0/go.mod h1:4iWc/mOBMJikiLo0qyU5iPTZVnKMXUD2GXx9Pp5EOOQ=
+github.com/stytchauth/stytch-go/v3 v3.1.1 h1:O+h6kCaX5A5Ir8Hsd0FbleMiPGgRZl/k7QOvqk4W620=
+github.com/stytchauth/stytch-go/v3 v3.1.1/go.mod h1:4iWc/mOBMJikiLo0qyU5iPTZVnKMXUD2GXx9Pp5EOOQ=

@@ -65,8 +65,24 @@ p {
 .actions {
     align-items: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+}
+.authType {
+    display: flex;
+    flex-direction: row;
+}
+.authInput {
+    display: flex;
+    flex-direction: row;
+}
+
+#errorText {
+    color: #AD2E30;
+    font-size: 14px;
+    width: 320px;
+    text-align: left;
+    margin: 0 0 5px 0;
 }
 
 input {
@@ -83,14 +99,82 @@ input:focus {
     outline: 0;
 }
 
+input:disabled {
+    background-color: white;
+    color: #19303D;
+}
+
+.telInput {
+    display: flex;
+    white-space: nowrap;
+    max-width: 320px;
+    width: 100%;
+}
+  
+.flag {
+    background: url('../images/stars-and-stripes.png') no-repeat scroll 7px 15px;
+    border-right: none;
+    border-radius: 3px 0 0 3px;
+    width: 80px;
+    padding-left: 52px;
+}
+
+#phoneNumber {
+    border-left: none;
+    border-radius: 0 3px 3px 0;
+    margin-left: -6px;
+    flex-grow: 1;
+    width: 100%;
+}
+
 .arrow {
     border: none;
     cursor: pointer;
     height: 40px;
     margin-left: 5px;
     padding: 0;
-
     width: 40px;
+}
+
+.passcodeInputContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 320px;
+}
+  
+.passcodeInput {
+    border-radius: 10px;
+    font-size: 20px;
+    width: 48px;
+    height: 45px;
+    text-align: center;
+}
+
+.button {
+    background-color: #F96719;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    height: 45px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    padding-top: 12px;
+    max-width: 320px;
+    width: 100%;
+}
+
+.resend {
+    color: #5C727D;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+}
+  
+.resend:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 a {
