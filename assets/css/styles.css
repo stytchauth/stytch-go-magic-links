@@ -117,9 +117,19 @@ label {
 #flag {
     background: url('../images/stars-and-stripes.png') no-repeat scroll 7px 15px;
     border: 1px solid black;
+    border-right: none;
     border-radius: 0px;
-    width: 80px;
-    height: 18px;
+    font-size: 16px;
+    width: 50px;
+    text-align:right;
+    padding-right: 0;
+}
+
+.phoneNumberInput {
+    border-radius: none;
+    border-left: none;
+    margin-left: -4px;
+    width: 200px;
 }
 
 .arrow {
@@ -183,4 +193,8 @@ a:hover {
 
 h1 {
     font-size: 40px;
+}
+
+input:focus {
+    outline: 0;
 }
