@@ -9,8 +9,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	"github.com/stytchauth/stytch-go/v3/stytch"
-	"github.com/stytchauth/stytch-go/v3/stytch/stytchapi"
+	"github.com/stytchauth/stytch-go/v4/stytch"
+	"github.com/stytchauth/stytch-go/v4/stytch/stytchapi"
 )
 
 type config struct {
@@ -130,11 +130,14 @@ func initializeConfig() (*config, error) {
 
 	// define the stytch client using your stytch project id & secret
 	// use stytch.EnvLive if you want to hit the live api
-	stytchAPIClient := stytchapi.NewAPIClient(
+	stytchAPIClient, err := stytchapi.NewAPIClient(
 		stytch.EnvTest,
 		os.Getenv("STYTCH_PROJECT_ID"),
 		os.Getenv("STYTCH_SECRET"),
 	)
+	if err != nil {
+		log.Fatalf("error instantiating API client %s", err)
+	}
 
 	return &config{
 		address:      address,

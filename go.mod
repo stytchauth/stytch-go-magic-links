@@ -5,5 +5,5 @@ go 1.15
 require (
 	github.com/gorilla/mux v1.8.0
 	github.com/joho/godotenv v1.3.0
-	github.com/stytchauth/stytch-go/v3 v3.0.0
+	github.com/stytchauth/stytch-go/v4 v4.0.1
 )
