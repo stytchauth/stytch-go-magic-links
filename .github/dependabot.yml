@@ -3,6 +3,6 @@ updates:
   - package-ecosystem: gomod
     directory: "/"
     allow:
-      - dependency-name: github.com/stytchauth/stytch-go
+      - dependency-name: github.com/stytchauth/stytch-go/v5
     schedule:
       interval: daily
