@@ -126,7 +126,7 @@ func initializeConfig() (*config, error) {
 		log.Printf("No .env file found at '%s'", ".env")
 		return &config{}, errors.New("error loading .env file")
 	}
-	address := getEnv("ADDRESS", "localhost:4567")
+	address := getEnv("ADDRESS", "localhost:3000")
 
 	// define the stytch client using your stytch project id & secret
 	// use stytch.EnvLive if you want to hit the live api
