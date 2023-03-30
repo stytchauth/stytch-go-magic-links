@@ -2,7 +2,7 @@
 
 ##### 1. Add Magic Link URLs
 Visit https://stytch.com/dashboard/redirect-urls to add
-`http://localhost:4567/authenticate` as a valid sign-up and login URL.
+`http://localhost:3000/authenticate` as a valid sign-up and login URL.
 
 ##### 2. Set ENV vars
 Set your test project ID and secret in the `.env` file.
@@ -13,6 +13,6 @@ Run `go run main.go`
 
 ##### 4. Login
 
-Visit `http://localhost:4567` and login with your email.
+Visit `http://localhost:3000` and login with your email.
 Then check for the Stytch email and click the sign in button.
 You should be signed in!
