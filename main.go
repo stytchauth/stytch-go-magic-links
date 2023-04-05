@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"html/template"
 	"log"
@@ -9,8 +10,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	"github.com/stytchauth/stytch-go/v4/stytch"
-	"github.com/stytchauth/stytch-go/v4/stytch/stytchapi"
+	"github.com/stytchauth/stytch-go/v7/stytch"
+	"github.com/stytchauth/stytch-go/v7/stytch/stytchapi"
 )
 
 type config struct {
@@ -62,6 +63,7 @@ func (c *config) homepage(w http.ResponseWriter, r *http.Request) {
 // loginOrCreateUser endpoint to send the user a magic link
 func (c *config) loginOrCreateUser(w http.ResponseWriter, r *http.Request) {
 	_, err := c.stytchClient.MagicLinks.Email.LoginOrCreate(
+		context.Background(),
 		&stytch.MagicLinksEmailLoginOrCreateParams{
 			Email:              r.FormValue("email"),
 			LoginMagicLinkURL:  c.magicLinkURL,
@@ -78,6 +80,7 @@ func (c *config) loginOrCreateUser(w http.ResponseWriter, r *http.Request) {
 // link's query params and hits the stytch authenticate endpoint to verify the token is valid
 func (c *config) authenticate(w http.ResponseWriter, r *http.Request) {
 	_, err := c.stytchClient.MagicLinks.Authenticate(
+		context.Background(),
 		&stytch.MagicLinksAuthenticateParams{
 			Token: r.URL.Query().Get("token"),
 		})
