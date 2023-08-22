@@ -21,7 +21,7 @@ This is a lightweight [Stytch](https://stytch.com) + [Go](https://nextjs.org/) e
 In your terminal, clone the project and install dependencies:
 
 ```bash
-git clone git@github.com:stytchauth/stytch-go-magic-links.git
+git clone https://github.com/stytchauth/stytch-go-magic-links.git
 cd stytch-go-magic-links
 go get
 ```
