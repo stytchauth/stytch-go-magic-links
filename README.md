@@ -12,9 +12,9 @@ This is a lightweight [Stytch](https://stytch.com) + [Go](https://nextjs.org/) e
 
 1. Create a [Stytch](https://stytch.com/) account. Once your account is set up a Project called "My first project" will be automatically created for you.
 
-2. Navigate to [Redirect URLs](https://stytch.com/dashboard/redirect-urls), and add `http://http://localhost:3000/authenticate` as the types **Login** and **Sign-up**.
+2. Navigate to [Redirect URLs](https://stytch.com/dashboard/redirect-urls), and add `http://localhost:3000/authenticate` as the types **Login** and **Sign-up**.
 
-3. Finally, navigate to [API Keys](https://stytch.com/dashboard/api-keys), and copy your `project_id` and `secrets`. You will need these value later on.
+3. Finally, navigate to [API Keys](https://stytch.com/dashboard/api-keys), and copy your `project_id` and `secret`. You will need these value later on.
 
 ### On your machine
 
@@ -25,6 +25,8 @@ git clone git@github.com:stytchauth/stytch-go-magic-links.git
 cd stytch-go-magic-links
 go get
 ```
+
+Next, create a `.env.local` file by running the command below and replacing the keys with those copied from step 3 above.
 
 ```bash
 cp .env.template .env.local
@@ -37,9 +39,9 @@ After completing all the set up steps above the application can be run with the 
 
 ```go run main.go```
 
-The application will be available at [`http://localhost:3000`](http://localhost:3000).
- 
-You'll be able to login with Email Magic Links. Enter your email, then check for the Stytch email and click the sign in button.
+The application will be available at [`http://localhost:3000`](http://localhost:3000) and you'll be able to login with Email Magic Links! 
+
+To do so, enter your email, then check for the Stytch email and click the sign in button.
 
 You should be signed in!
 
