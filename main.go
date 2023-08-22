@@ -13,7 +13,6 @@ import (
 	"github.com/stytchauth/stytch-go/v11/stytch/consumer/magiclinks"
 	"github.com/stytchauth/stytch-go/v11/stytch/consumer/magiclinks/email"
 	"github.com/stytchauth/stytch-go/v11/stytch/consumer/stytchapi"
-	"github.com/stytchauth/stytch-go/v11/stytch/consumer/users"
 )
 
 type config struct {
@@ -59,31 +58,6 @@ func (c *config) homepage(w http.ResponseWriter, r *http.Request) {
 		&templateVariables{LoginOrCreateUserPath: c.fullAddress + "/login_or_create_user"},
 		w,
 	)
-}
-
-func (c *config) testSearch(w http.ResponseWriter, r *http.Request) {
-	// type operandStruct struct {
-	// 	Operand string `json:"email_address",omitempty`,
-	// 	FuzzyEmailAddress string `json:"email_address_fuzzy`
-	// }
-	resp, err := c.stytchClient.Users.Search(
-		context.Background(),
-		&users.SearchParams{
-			Limit: 100,
-			Query: &users.SearchUsersQuery{
-				Operator: users.SearchUsersQueryOperatorAND,
-				Operands: []map[string]interface{}{
-					{"email_addresses": []string{
-						"sandbox+test@stytch.com",
-					},
-					},
-				},
-			},
-		})
-	if err != nil {
-		log.Printf("somethign went wrong: %s\n", err)
-	}
-	log.Printf("search response: %v\n", resp)
 }
 
 // takes the email entered on the homepage and hits the stytch
