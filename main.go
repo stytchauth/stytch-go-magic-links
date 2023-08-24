@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"html/template"
 	"log"
@@ -9,8 +10,9 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	"github.com/stytchauth/stytch-go/v4/stytch"
-	"github.com/stytchauth/stytch-go/v4/stytch/stytchapi"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/magiclinks"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/magiclinks/email"
+	"github.com/stytchauth/stytch-go/v11/stytch/consumer/stytchapi"
 )
 
 type config struct {
@@ -62,7 +64,8 @@ func (c *config) homepage(w http.ResponseWriter, r *http.Request) {
 // loginOrCreateUser endpoint to send the user a magic link
 func (c *config) loginOrCreateUser(w http.ResponseWriter, r *http.Request) {
 	_, err := c.stytchClient.MagicLinks.Email.LoginOrCreate(
-		&stytch.MagicLinksEmailLoginOrCreateParams{
+		context.Background(),
+		&email.LoginOrCreateParams{
 			Email:              r.FormValue("email"),
 			LoginMagicLinkURL:  c.magicLinkURL,
 			SignupMagicLinkURL: c.magicLinkURL,
@@ -78,7 +81,8 @@ func (c *config) loginOrCreateUser(w http.ResponseWriter, r *http.Request) {
 // link's query params and hits the stytch authenticate endpoint to verify the token is valid
 func (c *config) authenticate(w http.ResponseWriter, r *http.Request) {
 	_, err := c.stytchClient.MagicLinks.Authenticate(
-		&stytch.MagicLinksAuthenticateParams{
+		context.Background(),
+		&magiclinks.AuthenticateParams{
 			Token: r.URL.Query().Get("token"),
 		})
 	if err != nil {
@@ -122,16 +126,15 @@ func getEnv(key string, defaultValue string) string {
 
 // helper function to load in the .env file & set config values
 func initializeConfig() (*config, error) {
-	if err := godotenv.Load(".env"); err != nil {
-		log.Printf("No .env file found at '%s'", ".env")
-		return &config{}, errors.New("error loading .env file")
+	if err := godotenv.Load(".env.local"); err != nil {
+		log.Printf("No .env file found at '%s'", ".env.local")
+		return &config{}, errors.New("error loading .env.local file")
 	}
 	address := getEnv("ADDRESS", "localhost:3000")
 
 	// define the stytch client using your stytch project id & secret
 	// use stytch.EnvLive if you want to hit the live api
-	stytchAPIClient, err := stytchapi.NewAPIClient(
-		stytch.EnvTest,
+	stytchAPIClient, err := stytchapi.NewClient(
 		os.Getenv("STYTCH_PROJECT_ID"),
 		os.Getenv("STYTCH_SECRET"),
 	)
