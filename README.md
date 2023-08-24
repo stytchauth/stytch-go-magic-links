@@ -1,6 +1,6 @@
 # stytch-go-magic-links
 
-This is a lightweight [Stytch](https://stytch.com) + [Go](https://nextjs.org/) example app which demonstrates a quick Stytch implementation using our [Email Magic Links](https://stytch.com/docs/guides/magic-links/email-magic-links/api) product.
+This is a lightweight [Stytch](https://stytch.com) + [Go](https://go.dev/) example app which demonstrates a quick Stytch implementation using our [Email Magic Links](https://stytch.com/docs/guides/magic-links/email-magic-links/api) product.
 
 <p align="center"><img src="./public/example-app-image.png" alt="stytch" width="50%"/></p>
 
