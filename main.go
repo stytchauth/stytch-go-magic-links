@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -36,6 +37,8 @@ func main() {
 	}
 
 	r := mux.NewRouter()
+	fmt.Println("Navigate to", c.fullAddress, "to see the Hello Socks app!")
+
 	// routes
 	r.HandleFunc("/", c.homepage).Methods("GET")
 	r.HandleFunc("/login_or_create_user", c.loginOrCreateUser).Methods("POST")
