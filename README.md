@@ -1,6 +1,6 @@
 # stytch-go-magic-links
 
-This is a lightweight [Stytch](https://stytch.com) + [Go](https://go.dev/) example app which demonstrates a quick Stytch implementation using our [Email Magic Links](https://stytch.com/docs/guides/magic-links/email-magic-links/api) product.
+This is a lightweight [Stytch](https://stytch.com) + [Go](https://go.dev/) example app which demonstrates a quick Stytch implementation using our [Email Magic Links](https://stytch.com/docs/guides/magic-links/email-magic-links/api) and [Sessions](https://stytch.com/docs/guides/sessions/using-sessions) products.
 
 <p align="center"><img src="./public/example-app-image.png" alt="stytch" width="50%"/></p>
 
@@ -58,7 +58,7 @@ This example app showcases a small portion of what you can accomplish with Stytc
 
 #### :speech_balloon: Stytch community Slack
 
-Join the discussion, ask questions, and suggest new features in our ​[Slack community](https://stytch.slack.com/join/shared_invite/zt-2f0fi1ruu-ub~HGouWRmPARM1MTwPESA)!
+Join the discussion, ask questions, and suggest new features in our ​[Slack community](https://stytch.slack.com/join/shared_invite/zt-2f0fi1ruu-ub~HGouWRmPARM1MTwPESA)! 
 
 #### :question: Need support?
 
