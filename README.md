@@ -50,8 +50,7 @@ You should be signed in!
 This example app showcases a small portion of what you can accomplish with Stytch. Here are a few ideas to explore:
 
 1. Add additional login methods like [Passwords](https://stytch.com/docs/guides/passwords/api) or [Passcodes](https://stytch.com/docs/guides/passcodes/api).
-2. Use [Stytch Sessions](https://stytch.com/docs/sessions) to secure your backend.
-3. Secure your app further by building MFA authentication using methods like [WebAuthn](https://stytch.com/docs/guides/webauthn/api).
+2. Secure your app further by building MFA authentication using methods like [WebAuthn](https://stytch.com/docs/guides/webauthn/api).
 
 
 ## Get help and join the community
